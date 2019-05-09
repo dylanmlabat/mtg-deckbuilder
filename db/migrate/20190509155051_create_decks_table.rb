@@ -5,5 +5,6 @@ class CreateDecksTable < ActiveRecord::Migration
       t.string :format
       t.string :colors
       t.string :decklist
+    end
   end
 end
