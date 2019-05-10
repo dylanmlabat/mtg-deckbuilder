@@ -15,4 +15,19 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/login' do
+    if !logged_in?
+      erb :'/users/login'
+    end
+  end
+
+  post '/login' do
+    @user = User.find_by(params[:id])
+    if @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+    else
+      redirect '/login'
+    end
+  end
+
 end
