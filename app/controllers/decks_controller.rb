@@ -25,6 +25,16 @@ class DecksController < ApplicationController
       @deck = Deck.create(params[:name], params[:format], params[:colors], params[:decklist])
       @deck.user = params[:username]
       @deck.save
+      redirect "/decks/#{@deck.id}"
+    end
+  end
+
+  get '/decks/:id' do
+    if logged_in?
+      @deck = Deck.find_by(params[:id])
+      erb :'/decks/show'
+    else
+      redirect '/login'
     end
   end
 

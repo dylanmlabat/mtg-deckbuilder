@@ -1,6 +1,7 @@
-<h1>Edit Decks</h1>
+<h1>Edit <%= @deck.name %></h1>
 
 <form action="/decks/<%= @deck.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
   <input type="text" name="name" value="<%= @deck.name %>">
   <input type="text" name="format" value="<%= @deck.format %>">
   <input type="text" name="colors" value="<%= @deck.colors %>">
