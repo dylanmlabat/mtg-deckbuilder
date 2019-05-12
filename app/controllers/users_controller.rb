@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     else
       @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
+      redirect '/decks'
     end
   end
 
@@ -25,8 +26,18 @@ class UsersController < ApplicationController
     @user = User.find_by(params[:id])
     if @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      redirect '/decks'
     else
       redirect '/login'
+    end
+  end
+
+  get '/logout' do
+    if logged_in?
+      session.clear
+      redirect '/'
+    else
+      redirect '/'
     end
   end
 
