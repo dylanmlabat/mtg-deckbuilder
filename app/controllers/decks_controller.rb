@@ -19,11 +19,11 @@ class DecksController < ApplicationController
   post '/decks' do
     if params[:name].empty? || params[:format].empty? ||
        params[:colors].empty? || params[:decklist].empty? ||
-       !logged_in
+       !logged_in?
       redirect '/decks/new'
     else
-      @deck = Deck.create(params[:name], params[:format], params[:colors], params[:decklist])
-      @deck.user = params[:username]
+      @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
+      @deck.user = User.find_by(params[:id])
       @deck.save
       redirect "/decks/#{@deck.id}"
     end
