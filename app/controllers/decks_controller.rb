@@ -38,4 +38,25 @@ class DecksController < ApplicationController
     end
   end
 
+  get '/decks/:id/edit' do
+    if logged_in?
+      @deck = Deck.find_by(params[:id])
+      erb :'/decks/edit'
+    else
+      redirect '/login'
+    end
+  end
+
+  patch '/decks/:id' do
+    @deck = Deck.find_by(params[:id])
+    if params[:name].empty? || params[:format].empty? ||
+       params[:colors].empty? || params[:decklist].empty?
+      redirect "/decks/#{@deck.id}/edit"
+    else
+      @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
+      @deck.save
+      redirect "/decks/#{@deck.id}"
+    end
+  end
+
 end
