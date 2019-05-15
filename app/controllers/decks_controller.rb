@@ -18,7 +18,8 @@ class DecksController < ApplicationController
 
   post '/decks' do
     if params[:name].empty? || params[:format].empty? ||
-       params[:colors].empty? || params[:decklist].empty?
+       params[:colors].empty? || params[:decklist].empty? ||
+       !logged_in?
       redirect '/decks/new'
     else
       @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
