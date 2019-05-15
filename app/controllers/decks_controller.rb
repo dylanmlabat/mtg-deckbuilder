@@ -18,8 +18,7 @@ class DecksController < ApplicationController
 
   post '/decks' do
     if params[:name].empty? || params[:format].empty? ||
-       params[:colors].empty? || params[:decklist].empty? ||
-       !logged_in?
+       params[:colors].empty? || params[:decklist].empty?
       redirect '/decks/new'
     else
       @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
@@ -31,7 +30,7 @@ class DecksController < ApplicationController
 
   get '/decks/:id' do
     if logged_in?
-      @deck = Deck.find_by(params[:id])
+      @deck = Deck.find_by_id(params[:id])
       erb :'/decks/show'
     else
       redirect '/login'
@@ -40,7 +39,7 @@ class DecksController < ApplicationController
 
   get '/decks/:id/edit' do
     if logged_in?
-      @deck = Deck.find_by(params[:id])
+      @deck = Deck.find_by_id(params[:id])
       erb :'/decks/edit'
     else
       redirect '/login'
@@ -48,7 +47,7 @@ class DecksController < ApplicationController
   end
 
   patch '/decks/:id' do
-    @deck = Deck.find_by(params[:id])
+    @deck = Deck.find_by_id(params[:id])
     if params[:name].empty? || params[:format].empty? ||
        params[:colors].empty? || params[:decklist].empty?
       redirect "/decks/#{@deck.id}/edit"

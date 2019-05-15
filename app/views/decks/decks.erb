@@ -1,5 +1,10 @@
 <h1>Welcome, <%= current_user.username %></h1>
 
-<br><a href="/decks/new">Create Deck</a>
+<br><a href="/decks/new">Create New Deck</a>
+
+<br><br><h2>Decks:</h2>
+<br><% Deck.all.each do |deck| %>
+  <a href="/decks/<%= deck.id %>"><%= deck.name %></a><br><br>
+<% end %>
 
 <br><br><a href="/logout">Logout</a>
