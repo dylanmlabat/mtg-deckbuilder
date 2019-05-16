@@ -46,9 +46,27 @@ class DecksController < ApplicationController
        !logged_in?
       redirect "/decks/#{@deck.id}/edit"
     else
-      @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
-      @deck.save
-      redirect "/decks/#{@deck.id}"
+      if @deck.user == current_user
+        @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
+        @deck.save
+        redirect "/decks/#{@deck.id}"
+      else
+        redirect "/decks/#{@deck.id}"
+      end
+    end
+  end
+
+  post '/decks/:id/delete' do
+    if logged_in?
+      @deck = Deck.find_by_id(params[:id])
+      if @deck.user == current_user
+        @deck.delete
+        redirect '/account'
+      else
+        redirect "/decks/#{@deck.id}"
+      end
+    else
+      redirect '/login'
     end
   end
 
