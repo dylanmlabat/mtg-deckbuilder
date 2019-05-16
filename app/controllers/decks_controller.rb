@@ -1,14 +1,5 @@
 class DecksController < ApplicationController
 
-  get '/decks' do
-    if logged_in?
-      @decks = Deck.all
-      erb :'/decks/decks'
-    else
-      redirect '/login'
-    end
-  end
-
   get '/decks/new' do
     if logged_in?
       erb :'decks/new'
@@ -51,7 +42,8 @@ class DecksController < ApplicationController
   post '/decks/:id' do
     @deck = Deck.find_by_id(params[:id])
     if params[:name].empty? || params[:format].empty? ||
-       params[:colors].empty? || params[:decklist].empty?
+       params[:colors].empty? || params[:decklist].empty? ||
+       !logged_in?
       redirect "/decks/#{@deck.id}/edit"
     else
       @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])

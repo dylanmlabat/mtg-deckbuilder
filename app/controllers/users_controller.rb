@@ -1,10 +1,19 @@
 class UsersController < ApplicationController
 
+  get '/account' do
+    if logged_in?
+      @decks = Deck.all
+      erb :'/users/show'
+    else
+      redirect '/login'
+    end
+  end
+
   get '/signup' do
     if !logged_in?
       erb :'users/new'
     else
-      erb :'decks/decks'
+      erb :'/users/show'
     end
   end
 
@@ -22,7 +31,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      erb :'decks/decks'
+      erb :'/users/show'
     end
   end
 
