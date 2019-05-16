@@ -2,9 +2,13 @@
 
 <form action="/decks/<%= @deck.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
-  <p><input type="text" name="name" value="<%= @deck.name %>">
-  <p><input type="text" name="format" value="<%= @deck.format %>">
-  <p><input type="text" name="colors" value="<%= @deck.colors %>">
-  <p><input type="text" name="decklist" value="<%= @deck.decklist %>">
+  <p><label for="name">Name: </label>
+  <input type="text" name="name" id="name" value="<%= @deck.name %>">
+  <p><label for="format">Format: </label>
+  <input type="text" name="format" id="format" value="<%= @deck.format %>">
+  <p><label for="colors">Color(s): </label>
+  <input type="text" name="colors" id="colors" value="<%= @deck.colors %>">
+  <p><label for="decklist">Decklist: </label>
+  <input type="text" name="decklist" id="decklist" value="<%= @deck.decklist %>">
   <p><input type="submit" value="Update" id="submit">
 </form>

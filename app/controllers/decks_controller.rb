@@ -2,6 +2,7 @@ class DecksController < ApplicationController
 
   get '/decks' do
     if logged_in?
+      @decks = Deck.all
       erb :'/decks/decks'
     else
       redirect '/login'
@@ -47,7 +48,7 @@ class DecksController < ApplicationController
     end
   end
 
-  patch '/decks/:id' do
+  post '/decks/:id' do
     @deck = Deck.find_by_id(params[:id])
     if params[:name].empty? || params[:format].empty? ||
        params[:colors].empty? || params[:decklist].empty?
