@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  get '/:slug/account' do
+  get '/:user/account' do
     if logged_in?
       @decks = Deck.all
       erb :'/users/show'
@@ -46,12 +46,8 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do
-    if logged_in?
-      session.clear
-      redirect '/'
-    else
-      redirect '/'
-    end
+    session.clear
+    redirect '/'
   end
 
 end
