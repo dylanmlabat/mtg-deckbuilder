@@ -4,7 +4,7 @@
 
 <br><br><h2>Decks:</h2>
 <br><% current_user.decks.each do |deck| %>
-  <a href="/decks/<%= deck.id %>"><%= deck.name %></a><br><br>
+  <a href="/decks/<%= deck.slug %>"><%= deck.name %></a><br><br>
 <% end %>
 
 <br><br><a href="/logout"><input type="submit" value="Logout"></a>
