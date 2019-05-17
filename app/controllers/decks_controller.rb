@@ -61,7 +61,7 @@ class DecksController < ApplicationController
       @deck = Deck.find_by_id(params[:id])
       if @deck.user == current_user
         @deck.delete
-        redirect '/#{@user.slug}/account'
+        redirect "/#{current_user.slug}/account"
       else
         redirect "/decks/#{@deck.id}"
       end
