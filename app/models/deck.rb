@@ -3,4 +3,5 @@ class Deck < ActiveRecord::Base
   include Slugifiable::InstanceMethods
 
   belongs_to :user
+  validates :name, uniqueness: true
 end

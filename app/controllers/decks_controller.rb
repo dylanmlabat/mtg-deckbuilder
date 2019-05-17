@@ -17,7 +17,7 @@ class DecksController < ApplicationController
       @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
       @deck.user = current_user
       @deck.save
-      redirect "/#{current_user.slug}/decks/#{@deck.slug}"
+      redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
     end
   end
 
@@ -44,14 +44,14 @@ class DecksController < ApplicationController
     if params[:name].empty? || params[:format].empty? ||
        params[:colors].empty? || params[:decklist].empty? ||
        !logged_in?
-      redirect "/#{current_user.slug}/decks/#{@deck.slug}/edit"
+      redirect "/#{@deck.user.slug}/decks/#{@deck.slug}/edit"
     else
       if @deck.user == current_user
         @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
         @deck.save
-        redirect "/#{current_user.slug}/decks/#{@deck.slug}"
+        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
       else
-        redirect "/#{current_user.slug}/decks/#{@deck.slug}"
+        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
       end
     end
   end
@@ -61,9 +61,9 @@ class DecksController < ApplicationController
       @deck = Deck.find_by_slug(params[:slug])
       if @deck.user == current_user
         @deck.delete
-        redirect "/#{current_user.slug}/account"
+        redirect "/#{@deck.user.slug}/account"
       else
-        redirect "/#{current_user.slug}/decks/#{@deck.slug}"
+        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
       end
     else
       redirect '/login'
