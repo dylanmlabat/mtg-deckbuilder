@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  get '/account' do
+  get '/:slug/account' do
     if logged_in?
       @decks = Deck.all
       erb :'/users/show'
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     else
       @user = User.create(name: params[:name], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
-      redirect '/account'
+      redirect "/#{@user.slug}/account"
     end
   end
 
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect '/account'
+      redirect "/#{@user.slug}/account"
     else
       redirect '/login'
     end
