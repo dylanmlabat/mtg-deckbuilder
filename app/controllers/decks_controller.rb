@@ -14,7 +14,7 @@ class DecksController < ApplicationController
        !logged_in?
       redirect "/#{current_user.slug}/decks/new"
     else
-      @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
+      @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors].join(", "), decklist: params[:decklist])
       @deck.user = current_user
       @deck.save
       redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
@@ -51,7 +51,7 @@ class DecksController < ApplicationController
       redirect "/#{@deck.user.slug}/decks/#{@deck.slug}/edit"
     else
       if @deck.user == current_user
-        @deck.update(name: params[:name], format: params[:format], colors: params[:colors], decklist: params[:decklist])
+        @deck.update(name: params[:name], format: params[:format], colors: params[:colors].join(", "), decklist: params[:decklist])
         @deck.save
         redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
       else
