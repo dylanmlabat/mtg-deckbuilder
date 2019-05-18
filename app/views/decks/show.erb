@@ -4,7 +4,7 @@
 <br>Colors featured: <%= @deck.colors %>
 
 <br><br><h2>Decklist:</h2>
-<br><%= @deck.decklist %>
+<div class="decklist"><br><%= @deck.decklist %></div>
 
 <br><br><a href="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/edit"><input type="submit" value="Edit Deck"></a>
 <br><form action="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/delete" method="POST" >

@@ -30,6 +30,14 @@
     width: 85%;
   }
 
+  div.user-decks {
+    white-space: pre-wrap;
+  }
+
+  div.decklist {
+    white-space: pre-wrap;
+  }
+
   h1 {
     font-size: 36px;
     line-height: 54px;
