@@ -33,7 +33,11 @@ class DecksController < ApplicationController
   get '/:user/decks/:slug/edit' do
     if logged_in?
       @deck = Deck.find_by_slug(params[:slug])
-      erb :'/decks/edit'
+      if @deck.user == current_user
+        erb :'/decks/edit'
+      else
+        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+      end
     else
       redirect '/login'
     end

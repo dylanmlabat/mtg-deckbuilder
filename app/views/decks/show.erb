@@ -6,7 +6,6 @@
 <br><br><h2>Decklist:</h2>
 <br><%= @deck.decklist %>
 
-
 <br><br><a href="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/edit"><input type="submit" value="Edit Deck"></a>
 <br><form action="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/delete" method="POST" >
   <input id="hidden" type="hidden" name="_method" value="DELETE">
