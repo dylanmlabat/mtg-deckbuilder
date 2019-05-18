@@ -10,7 +10,7 @@ class DecksController < ApplicationController
 
   post '/:user/decks' do
     if params[:name].empty? || params[:format].empty? ||
-       params[:colors].empty? || params[:decklist].empty? ||
+       params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
       redirect "/#{current_user.slug}/decks/new"
     else
@@ -46,7 +46,7 @@ class DecksController < ApplicationController
   patch '/:user/decks/:slug' do
     @deck = Deck.find_by_slug(params[:slug])
     if params[:name].empty? || params[:format].empty? ||
-       params[:colors].empty? || params[:decklist].empty? ||
+       params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
       redirect "/#{@deck.user.slug}/decks/#{@deck.slug}/edit"
     else

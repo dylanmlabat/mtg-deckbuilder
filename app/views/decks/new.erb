@@ -4,8 +4,14 @@
   <p><label for="name">Name: </label>
   <input type="text" name="name" id="name">
   <p><label for="format">Format: </label>
-  <input type="text" name="format" id="format">
-  <p><label for="colors[]">Color(s): </label>
+  <select name="format" id="format">
+    <option value="Standard">Standard</option>
+    <option value="Modern">Modern</option>
+    <option value="Legacy">Legacy</option>
+    <option value="Vintage">Vintage</option>
+    <option value="Commander">Commander</option>
+  </select>
+  <p><label for="colors">Color(s): </label>
   <input type="checkbox" name="colors[]" value="Black">Black
   <input type="checkbox" name="colors[]" value="Blue">Blue
   <input type="checkbox" name="colors[]" value="Green">Green
