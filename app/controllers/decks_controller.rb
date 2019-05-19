@@ -4,6 +4,7 @@ class DecksController < ApplicationController
     if logged_in?
       erb :'decks/new'
     else
+      flash[:message] = "Please login first in order to create a new deck."
       redirect '/login'
     end
   end
@@ -12,6 +13,7 @@ class DecksController < ApplicationController
     if params[:name].empty? || params[:format].empty? ||
        params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
+      flash[:error] = "All fields required in order to create deck. Please try again."
       redirect "/decks/new"
     else
       @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors].join(", "), decklist: params[:decklist])
@@ -26,6 +28,7 @@ class DecksController < ApplicationController
       @deck = Deck.find_by_slug(params[:slug])
       erb :'/decks/show'
     else
+      flash[:message] = "Please login to view deck information."
       redirect '/login'
     end
   end
@@ -36,9 +39,11 @@ class DecksController < ApplicationController
       if @deck.user == current_user
         erb :'/decks/edit'
       else
+        flash[:error] = "Cannot edit another user's deck."
         redirect "/decks/#{@deck.slug}"
       end
     else
+      flash[:message] = "Please login first in order to edit a deck."
       redirect '/login'
     end
   end
@@ -48,6 +53,7 @@ class DecksController < ApplicationController
     if params[:name].empty? || params[:format].empty? ||
        params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
+      flash[:error] = "All fields required in order to update deck. Please try again."
       redirect "/decks/#{@deck.slug}/edit"
     else
       if @deck.user == current_user
@@ -55,6 +61,7 @@ class DecksController < ApplicationController
         @deck.save
         redirect "/decks/#{@deck.slug}"
       else
+        flash[:error] = "Cannot edit another user's deck."
         redirect "/decks/#{@deck.slug}"
       end
     end
@@ -67,9 +74,11 @@ class DecksController < ApplicationController
         @deck.delete
         redirect "/users/#{@deck.user.slug}"
       else
+        flash[:error] = "Cannot delete another user's deck."
         redirect "/decks/#{@deck.slug}"
       end
     else
+      flash[:message] = "Please login first in order to delete a deck."
       redirect '/login'
     end
   end
