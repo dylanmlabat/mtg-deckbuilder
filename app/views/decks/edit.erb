@@ -13,12 +13,12 @@
     <option value="Commander" <% if @deck.format == "Commander" %>selected<% end %>>Commander</option>
   </select>
   <p><label for="colors">Color(s): </label>
-  <input type="checkbox" name="colors[]" value="Black">Black
-  <input type="checkbox" name="colors[]" value="Blue">Blue
-  <input type="checkbox" name="colors[]" value="Green">Green
-  <input type="checkbox" name="colors[]" value="Red">Red
-  <input type="checkbox" name="colors[]" value="White">White
-  <input type="checkbox" name="colors[]" value="Colorless">Colorless
+  <input type="checkbox" name="colors[]" value="Black" <% if @deck.colors.include? "Black" %>checked<% end %>>Black
+  <input type="checkbox" name="colors[]" value="Blue" <% if @deck.colors.include? "Blue" %>checked<% end %>>Blue
+  <input type="checkbox" name="colors[]" value="Green" <% if @deck.colors.include? "Green" %>checked<% end %>>Green
+  <input type="checkbox" name="colors[]" value="Red" <% if @deck.colors.include? "Red" %>checked<% end %>>Red
+  <input type="checkbox" name="colors[]" value="White" <% if @deck.colors.include? "White" %>checked<% end %>>White
+  <input type="checkbox" name="colors[]" value="Colorless" <% if @deck.colors.include? "Colorless" %>checked<% end %>>Colorless
   <p><label for="decklist">Decklist: </label>
   <br><textarea name="decklist" id=decklist rows="24" cols="66"><%= @deck.decklist %></textarea>
   <p><input type="submit" value="Update" id="submit">
