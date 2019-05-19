@@ -1,6 +1,6 @@
 # MtgDeckbuilder
 
-This Sinatra project allows users to create a password protected account. Doing so then grants users the ability to create, edit, and delete MtG decks associated with their account and also to view other users and their decks.
+This Sinatra project allows users to create a password protected account. Doing so then grants users the ability to create, edit, and delete MtG decks associated with their account. Users may also view other user profiles and their decks.
 
 ## Installation
 
