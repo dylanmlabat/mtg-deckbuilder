@@ -30,6 +30,10 @@
     width: 85%;
   }
 
+  .flash {
+    color: #f00;
+  }
+
   div.user-decks {
     white-space: pre-wrap;
   }

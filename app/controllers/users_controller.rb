@@ -5,6 +5,7 @@ class UsersController < ApplicationController
       @decks = Deck.all
       erb :'/users/show'
     else
+      flash[:message] = "Please login to view account information."
       redirect '/login'
     end
   end
@@ -13,12 +14,14 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'users/new'
     else
-      erb :'/users/show'
+      flash[:message] = "Currently signed in. Please logout first in order to create a new account."
+      redirect "/#{current_user.slug}/account"
     end
   end
 
   post '/signup' do
     if params[:name].empty? || params[:email].empty? || params[:password].empty?
+      flash[:error] = "All fields required in order to create account. Please try again."
       redirect '/signup'
     else
       @user = User.create(name: params[:name], email: params[:email], password: params[:password])
@@ -31,7 +34,8 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      erb :'/users/show'
+      flash[:message] = "Currently signed in. Please logout first in order to login to another account."
+      redirect "/#{current_user.slug}/account"
     end
   end
 
@@ -41,6 +45,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/#{@user.slug}/account"
     else
+      flash.now[:error] = "Invalid login credentials. Please note: Both username and password are case-sensitive."
       redirect '/login'
     end
   end
