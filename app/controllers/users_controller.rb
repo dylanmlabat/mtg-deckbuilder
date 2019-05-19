@@ -36,6 +36,7 @@ class UsersController < ApplicationController
         @user.save
         redirect "/users/#{@user.slug}"
       else
+        flash[:error] = "Cannot edit another user's account information."
         redirect "/decks/#{@user.slug}"
       end
     end
