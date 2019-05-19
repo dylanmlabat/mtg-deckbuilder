@@ -13,6 +13,7 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     @decks = Deck.all
+    @recent_decks = @decks.reverse[0..4]
     erb :index
   end
 

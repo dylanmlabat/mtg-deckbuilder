@@ -5,7 +5,7 @@
   Otherwise, <a href="/signup">Sign Up</a> today.
 <% else %>
   <br><h2>Recently created</h2>
-  <div class="user-decks"><% @decks.reverse_each do |deck| %>
+  <div class="user-decks"><% @recent_decks.each do |deck| %>
     <a href="/decks/<%= deck.slug %>"><%= deck.name %></a>
     <small>added by <a href="/users/<%= deck.user.slug %>"><%= deck.user.name %></a></small>
   <% end %></div>
