@@ -6,11 +6,11 @@
   <input type="text" name="name" id="name" value="<%= @deck.name %>">
   <p><label for="format">Format: </label>
   <select name="format" id="format">
-    <option value="Standard">Standard</option>
-    <option value="Modern">Modern</option>
-    <option value="Legacy">Legacy</option>
-    <option value="Vintage">Vintage</option>
-    <option value="Commander">Commander</option>
+    <option value="Standard" <% if @deck.format == "Standard" %>selected<% end %>>Standard</option>
+    <option value="Modern" <% if @deck.format == "Modern" %>selected<% end %>>Modern</option>
+    <option value="Legacy" <% if @deck.format == "Legacy" %>selected<% end %>>Legacy</option>
+    <option value="Vintage" <% if @deck.format == "Vintage" %>selected<% end %>>Vintage</option>
+    <option value="Commander" <% if @deck.format == "Commander" %>selected<% end %>>Commander</option>
   </select>
   <p><label for="colors">Color(s): </label>
   <input type="checkbox" name="colors[]" value="Black">Black
