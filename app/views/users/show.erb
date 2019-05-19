@@ -1,4 +1,7 @@
 <h1><%= @user.name %></h1>
+<% if @user == current_user %>
+<a href="/users/<%= @user.slug %>/edit"><input type="submit" value="Update Account Information"></a><br>
+<% end %>
 
 <br><h2>Decks:</h2>
 <div class="user-decks"><% @user.decks.each do |deck| %>

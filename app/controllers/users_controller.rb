@@ -10,6 +10,37 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/users/:slug/edit' do
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      if @user == current_user
+        erb :'/users/edit'
+      else
+        flash[:error] = "Cannot edit another user's account information."
+        redirect "/users/#{@user.slug}"
+      end
+    else
+      flash[:message] = "Please login to view account information."
+      redirect '/login'
+    end
+  end
+
+  patch '/users/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    if params[:email].empty? || params[:password].empty?
+      flash[:error] = "All fields required in order to update account information. Please try again."
+      redirect "/users/#{@user.slug}/edit"
+    else
+      if @user == current_user
+        @user.update(email: params[:email], password: params[:password])
+        @user.save
+        redirect "/users/#{@user.slug}"
+      else
+        redirect "/decks/#{@user.slug}"
+      end
+    end
+  end
+
   get '/signup' do
     if !logged_in?
       erb :'users/new'
