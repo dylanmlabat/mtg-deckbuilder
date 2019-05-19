@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     if logged_in?
-      erb :'/users/show'
+      redirect "/#{current_user.slug}/account"
     else
       erb :index
     end
