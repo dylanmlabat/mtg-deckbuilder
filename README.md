@@ -1,28 +1,14 @@
-# Project Title
+# MtgDeckbuilder
 
-One Paragraph of project description goes here
+This Sinatra project allows users to create a password protected account. Doing so then grants users the ability to create, edit, and delete MtG decks associated with their account and also to view other users and their decks.
 
 ## Installation
 
-A step by step series of examples that tell you how to get a development env running
+Fork/clone this repository and then cd to the directory in your terminal.
 
-Say what the step will be
+Run `bundle install` to install the necessary gems and then `rake db:migrate` to ensure the database is created.
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Usage
-
-Run `shotgun` and follow the on screen prompts.
+Run `shotgun` and then navigate to the server url in your browser.
 
 ## Contributing
 
