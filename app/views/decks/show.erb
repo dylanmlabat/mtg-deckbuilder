@@ -1,5 +1,5 @@
 <h1><%= @deck.name %></h1>
-<h5>Created by <%= @deck.user.name %></h5>
+<h5>Created by <a href="/users/<%= @deck.user.slug %>"><%= @deck.user.name %></a></h5>
 
 <br>This deck is legal in <%= @deck.format %>.
 <br>Colors featured: <%= @deck.colors %>
@@ -7,10 +7,10 @@
 <br><br><h2>Decklist:</h2>
 <div class="decklist"><br><%= @deck.decklist %></div>
 
-<br><br><a href="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/edit"><input type="submit" value="Edit Deck"></a>
-<br><form action="/<%= @deck.user.slug %>/decks/<%= @deck.slug %>/delete" method="POST" >
+<br><br><a href="/decks/<%= @deck.slug %>/edit"><input type="submit" value="Edit Deck"></a>
+<br><form action="/decks/<%= @deck.slug %>/delete" method="POST" >
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Deck">
 </form>
 
-<br><br><a href="/<%= current_user.slug %>/account">Back to Account</a>
+<br><br><a href="/users/<%= current_user.slug %>">Back to Account</a>

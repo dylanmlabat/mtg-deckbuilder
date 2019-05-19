@@ -1,6 +1,6 @@
 class DecksController < ApplicationController
 
-  get '/:user/decks/new' do
+  get '/decks/new' do
     if logged_in?
       erb :'decks/new'
     else
@@ -8,20 +8,20 @@ class DecksController < ApplicationController
     end
   end
 
-  post '/:user/decks' do
+  post '/decks' do
     if params[:name].empty? || params[:format].empty? ||
        params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
-      redirect "/#{current_user.slug}/decks/new"
+      redirect "/decks/new"
     else
       @deck = Deck.create(name: params[:name], format: params[:format], colors: params[:colors].join(", "), decklist: params[:decklist])
       @deck.user = current_user
       @deck.save
-      redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+      redirect "/decks/#{@deck.slug}"
     end
   end
 
-  get '/:user/decks/:slug' do
+  get '/decks/:slug' do
     if logged_in?
       @deck = Deck.find_by_slug(params[:slug])
       erb :'/decks/show'
@@ -30,44 +30,44 @@ class DecksController < ApplicationController
     end
   end
 
-  get '/:user/decks/:slug/edit' do
+  get '/decks/:slug/edit' do
     if logged_in?
       @deck = Deck.find_by_slug(params[:slug])
       if @deck.user == current_user
         erb :'/decks/edit'
       else
-        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+        redirect "/decks/#{@deck.slug}"
       end
     else
       redirect '/login'
     end
   end
 
-  patch '/:user/decks/:slug' do
+  patch '/decks/:slug' do
     @deck = Deck.find_by_slug(params[:slug])
     if params[:name].empty? || params[:format].empty? ||
        params[:colors] == nil || params[:decklist].empty? ||
        !logged_in?
-      redirect "/#{@deck.user.slug}/decks/#{@deck.slug}/edit"
+      redirect "/decks/#{@deck.slug}/edit"
     else
       if @deck.user == current_user
         @deck.update(name: params[:name], format: params[:format], colors: params[:colors].join(", "), decklist: params[:decklist])
         @deck.save
-        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+        redirect "/decks/#{@deck.slug}"
       else
-        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+        redirect "/decks/#{@deck.slug}"
       end
     end
   end
 
-  delete '/:user/decks/:slug/delete' do
+  delete '/decks/:slug/delete' do
     if logged_in?
       @deck = Deck.find_by_slug(params[:slug])
       if @deck.user == current_user
         @deck.delete
-        redirect "/#{@deck.user.slug}/account"
+        redirect "/users/#{@deck.user.slug}"
       else
-        redirect "/#{@deck.user.slug}/decks/#{@deck.slug}"
+        redirect "/decks/#{@deck.slug}"
       end
     else
       redirect '/login'

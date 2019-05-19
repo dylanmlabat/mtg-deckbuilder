@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
-  get '/:user/account' do
+  get '/users/:slug' do
     if logged_in?
+      @user = User.find_by_slug(params[:slug])
       @decks = Deck.all
       erb :'/users/show'
     else
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
       erb :'users/new'
     else
       flash[:message] = "Currently signed in. Please logout first in order to create a new account."
-      redirect "/#{current_user.slug}/account"
+      redirect "/users/#{current_user.slug}"
     end
   end
 
@@ -25,8 +26,9 @@ class UsersController < ApplicationController
       redirect '/signup'
     else
       @user = User.create(name: params[:name], email: params[:email], password: params[:password])
+      @user.save
       session[:user_id] = @user.id
-      redirect "/#{@user.slug}/account"
+      redirect "/users/#{@user.slug}"
     end
   end
 
@@ -35,7 +37,7 @@ class UsersController < ApplicationController
       erb :'/users/login'
     else
       flash[:message] = "Currently signed in. Please logout first in order to login to another account."
-      redirect "/#{current_user.slug}/account"
+      redirect "/users/#{current_user.slug}"
     end
   end
 
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect "/#{@user.slug}/account"
+      redirect "/users/#{@user.slug}"
     else
       flash.now[:error] = "Invalid login credentials. Please note: Both username and password are case-sensitive."
       redirect '/login'
