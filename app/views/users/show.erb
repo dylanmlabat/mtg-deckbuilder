@@ -1,10 +1,10 @@
 <h1><%= @user.name %></h1>
 
-<br><a href="/decks/new"><input type="submit" value="Create New Deck"></a>
-
-<br><br><h2>Decks:</h2>
-<div class="user-decks"<br><% @user.decks.each do |deck| %>
+<br><h2>Decks:</h2>
+<div class="user-decks"><% @user.decks.each do |deck| %>
   <a href="/decks/<%= deck.slug %>"><%= deck.name %></a>
 <% end %></div>
 
-<br><br><a href="/logout"><input type="submit" value="Logout"></a>
+<% if @user == current_user %>
+<br><br><a href="/decks/new"><input type="submit" value="Create New Deck"></a>
+<% end %>

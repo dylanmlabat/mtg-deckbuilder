@@ -7,10 +7,10 @@
 <br><br><h2>Decklist:</h2>
 <div class="decklist"><br><%= @deck.decklist %></div>
 
+<% if @deck.user == current_user %>
 <br><br><a href="/decks/<%= @deck.slug %>/edit"><input type="submit" value="Edit Deck"></a>
 <br><form action="/decks/<%= @deck.slug %>/delete" method="POST" >
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Deck">
 </form>
-
-<br><br><a href="/users/<%= current_user.slug %>">Back to Account</a>
+<% end %>
