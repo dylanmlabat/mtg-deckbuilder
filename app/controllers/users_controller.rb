@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   get '/users/:slug' do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
-      @decks = Deck.all
       erb :'/users/show'
     else
       flash[:message] = "Please login to view account information."
@@ -28,7 +27,7 @@ class UsersController < ApplicationController
       @user = User.create(name: params[:name], email: params[:email], password: params[:password])
       @user.save
       session[:user_id] = @user.id
-      redirect "/users/#{@user.slug}"
+      redirect "/"
     end
   end
 
@@ -45,9 +44,9 @@ class UsersController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect "/users/#{@user.slug}"
+      redirect "/"
     else
-      flash.now[:error] = "Invalid login credentials. Please note: Both username and password are case-sensitive."
+      flash[:error] = "Invalid login credentials. Please note: Both username and password are case-sensitive."
       redirect '/login'
     end
   end

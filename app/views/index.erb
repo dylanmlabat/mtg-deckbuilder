@@ -1,4 +1,12 @@
 <h1>Welcome to the MtG Deckbuilder</h1>
 
-<br>If you already have an account, click here to <a href="/login">Log In</a>.
-Otherwise, <a href="/signup">Sign Up</a> today.
+<% if !logged_in? %>
+  <br>If you already have an account, click here to <a href="/login">Log In</a>.
+  Otherwise, <a href="/signup">Sign Up</a> today.
+<% else %>
+  <br><h2>Recently created</h2>
+  <div class="user-decks"><% @decks.reverse_each do |deck| %>
+    <a href="/decks/<%= deck.slug %>"><%= deck.name %></a>
+    <small>added by <a href="/users/<%= deck.user.slug %>"><%= deck.user.name %></a></small>
+  <% end %></div>
+<% end %>

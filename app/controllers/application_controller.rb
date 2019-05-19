@@ -12,11 +12,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    if logged_in?
-      redirect "/users/#{current_user.slug}"
-    else
-      erb :index
-    end
+    @decks = Deck.all
+    erb :index
   end
 
   helpers do
