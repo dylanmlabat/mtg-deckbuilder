@@ -3,8 +3,8 @@
 <br><h2>Decks:</h2>
 <div class="user-decks"><% @user.decks.each do |deck| %>
   <a href="/decks/<%= deck.slug %>"><%= deck.name %></a>
-<% end %></div>
+<% end %></div><br>
 
 <% if @user == current_user %>
-<br><br><a href="/decks/new"><input type="submit" value="Create New Deck"></a>
+<br><a href="/decks/new"><input type="submit" value="Create New Deck"></a>
 <% end %>

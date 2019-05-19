@@ -26,9 +26,11 @@
       <%= yield %>
 
       <footer class="branding">
-        <small>Currently logged in as: <a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></small>
-        <a href="/logout"><input type="submit" value="Logout"></a>
-        <br><br><small>&copy; 2019 <strong>MtgDeckbuilder</strong></small>
+        <% if logged_in? %>
+          Currently logged in as: <a href="/users/<%= current_user.slug %>"><%= current_user.name %></a>
+          <a href="/logout"><input type="submit" value="Logout"></a><br><br>
+        <% end %>
+        <small>&copy; 2019 <strong><a href="/">MtgDeckbuilder</a></strong></small>
       </footer>
     </div>
 
